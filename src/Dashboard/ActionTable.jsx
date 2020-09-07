@@ -15,7 +15,7 @@ import InsertDriveFileRoundedIcon from '@material-ui/icons/InsertDriveFileRounde
 import {get} from 'lodash';
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
-
+import {isEmpty} from 'lodash'
 
 
 const useStyles = makeStyles({
@@ -135,74 +135,10 @@ let Actions = props =>{
     </span>);
 };
 
-const rows = [
-  {
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },
-  {
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },{
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },{
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },{
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },{
-    "campaign": "PubG",
-    "region": "US",
-    "date": 'Oct 2019, 28',
-    'days_left': '23 days ago',
-    "price": 200,
-    "csv": "Some CSV link for Whatsapp",
-    "report": "Some report link for Whatsapp",
-    "image_url":"static/games/Bitmap.png"
-
-  },
-];
-
-let  ActionTable = () =>{
+let  ActionTable = props =>{
   const classes = useStyles();
-
+  let {data} = props
+  data =  isEmpty(data) ? [] : data ;
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
@@ -215,7 +151,7 @@ let  ActionTable = () =>{
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data.map((row) => (
             <TableRow key={row.name}>
               <TableCell  align="left">
                 <DateItem {...row}/>
