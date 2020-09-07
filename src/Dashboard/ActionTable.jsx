@@ -116,7 +116,7 @@ let Actions = props =>{
         </IconButton>
         </Grid>
 
-        <Grid item sm={4} xs={4}>
+        <Grid item sm={3} xs={4}>
         <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}} onClick={()=>{setActionButtons({
           ...actionButtons, 'schedullar': !actionButtons.schedullar
         })}}>

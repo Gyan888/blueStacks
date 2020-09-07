@@ -81,16 +81,17 @@ let Panel = () => {
     let past_event = [];
     let current_event = [];
     rows.forEach( row =>{
-        let converted = moment(row.timeStamp).format('MMM YYYY, DD')
+        let converted = moment.unix(row.timeStamp).format('MMM YYYY, DD')
         set(row, 'date', converted);
         let days = moment.duration(moment().diff(moment.unix(row.timeStamp))).asDays()
         if (days < 0){
-          set(row, 'days_left', days);
+          days = Math.round(Math.abs(days))
+          set(row, 'days_left', `${days} days left`);
           future_event.push(row)
         }
         else if (days>0){
           days = Math.round(Math.abs(days))
-          set(row, 'days_left', days);
+          set(row, 'days_left', `${days} days ago`);
           past_event.push(row);
         }
         else{
@@ -139,9 +140,9 @@ let Panel = () => {
                       variant='scrollable'
                       TabIndicatorProps={{style: {background: 'green', minHeight: 4}}}
                     >
-                        <Tab className={value === "current_event" ? classes.activeStyle: classes.defaultStyle} value={"current_event"} label="Upcoming Campaigns" />
-                        <Tab className={value === "past_event" ? classes.activeStyle: classes.defaultStyle} value={"past_event"} label="Live Campaigns" />
-                        <Tab className={value === "future_event" ? classes.activeStyle: classes.defaultStyle} value={"future_event"} label="Past Campaigns" />
+                        <Tab className={value === "future_event" ? classes.activeStyle: classes.defaultStyle} value={"future_event"} label="Upcoming Campaigns" />
+                        <Tab className={value === "current_event" ? classes.activeStyle: classes.defaultStyle} value={"current_event"} label="Live Campaigns" />
+                        <Tab className={value === "past_event" ? classes.activeStyle: classes.defaultStyle} value={"past_event"} label="Past Campaigns" />
                     </Tabs>
                 </AppBar>
                 {
