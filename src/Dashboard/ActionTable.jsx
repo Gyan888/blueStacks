@@ -16,14 +16,14 @@ import {get} from 'lodash';
 import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import {isEmpty} from 'lodash'
-
+import moment from 'moment'
 
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
   tableHeader:{
-    backgroundColor: '#d3d3d36b'
+    backgroundColor: '#d3d3d36b',
   },
   price:{
     color: '#c9d069',
@@ -93,6 +93,18 @@ let Campaign = props =>{
 let Actions = props =>{
     const classes = useStyles();
 
+    let handleChange = date =>{
+      const {data} = props;
+      let changed_date = date.unix();
+      props.reschedule(data, changed_date);
+    };
+
+    let toggle = key =>{
+      setActionButtons({
+        ...actionButtons, [key]: !actionButtons[key]
+      })
+    };
+
     let [actionButtons, setActionButtons] = useState({
       'schedullar': false,
       'csv': false,
@@ -117,17 +129,17 @@ let Actions = props =>{
         </Grid>
 
         <Grid item sm={6} xs={4}>
-        <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}} onClick={()=>{setActionButtons({
-          ...actionButtons, 'schedullar': !actionButtons.schedullar
-        })}}>
-
+        <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}}
+         onClick={()=>toggle("schedullar")}>
           <DateRangeTwoToneIcon className={classes.calender}/> Schedule Again
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-
-              <DatePicker variant="inline" open={actionButtons.schedullar}
-              TextFieldComponent={() => null}/>
-          </MuiPickersUtilsProvider>
         </IconButton>
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+              <DatePicker  open={actionButtons.schedullar}
+                value={moment.unix(props.data.timeStamp)}
+                TextFieldComponent={() => null}
+                onClose={()=>toggle("schedullar")}
+                onChange={handleChange}/>
+          </MuiPickersUtilsProvider>
         </Grid>
 
         </Grid>
@@ -166,7 +178,7 @@ let  ActionTable = props =>{
               </TableCell>
 
               <TableCell  align="center">
-                <Actions {...row}/>
+                <Actions data={row}  reschedule={props.reschedule}/>
               </TableCell>
             </TableRow>
           ))}

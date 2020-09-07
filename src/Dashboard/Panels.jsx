@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Toolbar, Grid, ListItem, ListItemText } from '@material-ui/core';
 import ActionTable from './ActionTable';
-import {set} from 'lodash'
+import {set, get, remove} from 'lodash'
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -66,17 +66,28 @@ function TabPanel(props) {
 
 let Panel = () => {
   const classes = useStyles();
-  const [value, setValue] = React.useState("current_event");
+  let [value, setValue] = React.useState("current_event");
 
-  const [events, setEvents] = useState({
+  let [events, setEvents] = useState({
       'current_event': '',
       'past_event': '',
       'future_event': '',
   });
 
-  let rows = [{"campaign": "sudo ku", "timeStamp": 1599468176, "price": 749, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599813776, "price": 34, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Man of steel", "timeStamp": 1599640976, "price": 632, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599813776, "price": 691, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599381776, "price": 195, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599381776, "price": 52, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "sudo ku", "timeStamp": 1599381776, "price": 622, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599468176, "price": 11, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "sudo ku", "timeStamp": 1599468176, "price": 86, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "sudo ku", "timeStamp": 1599468176, "price": 655, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599468176, "price": 689, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599122576, "price": 116, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Man of steel", "timeStamp": 1599468176, "price": 195, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599640976, "price": 447, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599381776, "price": 507, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599295376, "price": 203, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Man of steel", "timeStamp": 1599468176, "price": 62, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599813776, "price": 466, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599727376, "price": 674, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599468176, "price": 78, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599381776, "price": 292, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599468176, "price": 349, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ghost protocol", "timeStamp": 1599640976, "price": 585, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599554576, "price": 782, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "shadow fight", "timeStamp": 1599468176, "price": 160, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599554576, "price": 138, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599122576, "price": 222, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ghost protocol", "timeStamp": 1599813776, "price": 739, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Commando 1947", "timeStamp": 1599208976, "price": 105, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}, {"campaign": "Ugly Dragon123", "timeStamp": 1599381776, "price": 190, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp"}];
+  let fetchedData = [{"campaign": "Pug G", "timeStamp": 1599654253, "price": 413, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 0}, {"campaign": "Ghost protocol", "timeStamp": 1599567853, "price": 544, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 1}, {"campaign": "Ugly Dragon123", "timeStamp": 1599395053, "price": 476, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 2}, {"campaign": "Pug G", "timeStamp": 1599481453, "price": 97, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 3}, {"campaign": "Ghost protocol", "timeStamp": 1599740653, "price": 112, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 4}, {"campaign": "Pug G", "timeStamp": 1599135853, "price": 431, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 5}, {"campaign": "sudo ku", "timeStamp": 1599308653, "price": 676, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 6}, {"campaign": "sudo ku", "timeStamp": 1599740653, "price": 111, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 7}, {"campaign": "Ghost protocol", "timeStamp": 1599308653, "price": 224, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 8}, {"campaign": "Pug G", "timeStamp": 1599567853, "price": 423, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 9}, {"campaign": "Ugly Dragon123", "timeStamp": 1599827053, "price": 314, "image_url": "static/games/UglyDragon.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 10}, {"campaign": "sudo ku", "timeStamp": 1599308653, "price": 483, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 11}, {"campaign": "Ghost protocol", "timeStamp": 1599740653, "price": 220, "image_url": "static/games/GhostProtocol.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 12}, {"campaign": "shadow fight", "timeStamp": 1599654253, "price": 581, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 13}, {"campaign": "Pug G", "timeStamp": 1599827053, "price": 629, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 14}, {"campaign": "Pug G", "timeStamp": 1599395053, "price": 317, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 15}, {"campaign": "sudo ku", "timeStamp": 1599567853, "price": 577, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 16}, {"campaign": "Pug G", "timeStamp": 1599654253, "price": 216, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 17}, {"campaign": "Pug G", "timeStamp": 1599135853, "price": 1, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 18}, {"campaign": "shadow fight", "timeStamp": 1599135853, "price": 214, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 19}, {"campaign": "Man of steel", "timeStamp": 1599395053, "price": 390, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 20}, {"campaign": "Pug G", "timeStamp": 1599135853, "price": 531, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 21}, {"campaign": "shadow fight", "timeStamp": 1599135853, "price": 259, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 22}, {"campaign": "Man of steel", "timeStamp": 1599135853, "price": 43, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 23}, {"campaign": "Man of steel", "timeStamp": 1599135853, "price": 638, "image_url": "static/games/Mansteel.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 24}, {"campaign": "Commando 1947", "timeStamp": 1599135853, "price": 705, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 25}, {"campaign": "shadow fight", "timeStamp": 1599308653, "price": 603, "image_url": "static/games/ShadowFight.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 26}, {"campaign": "Commando 1947", "timeStamp": 1599827053, "price": 678, "image_url": "static/games/com2os.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 27}, {"campaign": "Pug G", "timeStamp": 1599481453, "price": 363, "image_url": "static/games/PubG.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 28}, {"campaign": "sudo ku", "timeStamp": 1599222253, "price": 314, "image_url": "static/games/Sudoku.png", "report": "Some report link for Whatsapp", "csv": "Some CSV link for Whatsapp", "id": 29}];
 
-  let loadData = ()=>{
+  let [rows, setRows] = useState(fetchedData);
+
+  let reschedule = (data, changed_date) =>{
+    let dt = rows.slice()
+    let temp = remove(dt, {id: data.id})
+    temp = temp[0];
+    temp.timeStamp = changed_date;
+    dt.push(temp)
+    setRows(dt);
+  };
+
+  let loadData = rows =>{
     let future_event = [];
     let past_event = [];
     let current_event = [];
@@ -85,6 +96,7 @@ let Panel = () => {
         set(row, 'date', converted);
         let days = moment.duration(moment().diff(moment.unix(row.timeStamp))).asDays()
         if (Math.round(Math.abs(days)) === 0){
+          set(row, 'days_left', null);
           current_event.push(row);
         }
         else if (days>0){
@@ -106,8 +118,9 @@ let Panel = () => {
   };
 
   useEffect(() => {
-    loadData(rows);
-  }, []);
+    if (rows)
+      loadData(rows);
+  }, [rows]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -149,7 +162,7 @@ let Panel = () => {
                   ["current_event", "past_event", "future_event"].map(e =>
                     (
                     <TabPanel value={value} index={e}>
-                      <ActionTable  key={e} event={e} data={events[e]} style={{
+                      <ActionTable  key={e} event={e} data={events[e]} reschedule={reschedule} style={{
                         'width': '100%'
                       }}/>
                     </TabPanel>
