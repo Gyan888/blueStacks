@@ -17,6 +17,7 @@ import { MuiPickersUtilsProvider, DatePicker } from "@material-ui/pickers";
 import MomentUtils from "@date-io/moment";
 import {isEmpty} from 'lodash'
 import moment from 'moment'
+import PriceInfo from './PriceInfo';
 
 const useStyles = makeStyles({
   table: {
@@ -49,18 +50,26 @@ const useStyles = makeStyles({
   },
   file:{
     color: '#95e895'
+  },
+  cell:{
+    borderBottom: '0px'
   }
+
 });
 
 let Pricing = (props) =>{
   const classes = useStyles();
+  const {data} = props;
+  let [priceInfo, setPriceInfo] = useState(false);
+
   return (<span>
-    <IconButton  aria-label="add an alarm" classes={{
+    <IconButton onClick={() => setPriceInfo(true)} aria-label="add an alarm" classes={{
       root: classes.iconButton
     }}>
       <MonetizationOnIcon className={classes.price}/>
       View Pricing
     </IconButton>
+      <PriceInfo open={priceInfo} handleClose={()=>setPriceInfo(false)} data={data}/>
   </span>)
 
 }
@@ -79,13 +88,10 @@ let DateItem = props =>{
 }
 
 let Campaign = props =>{
-    const classes = useStyles();
     return (
-      <ListItem classes={{
-        root: classes.dateItem
-      }}>
+      <ListItem>
           <Avatar variant="square" alt='Game logo' src={props.image_url} />
-        <ListItemText primary={props.campaign} secondary={props.region} />
+        <ListItemText primary={props.campaign} secondary={props.region} style={{textAlign: "left", paddingLeft: "8px"}}/>
       </ListItem>
     )
 };
@@ -114,21 +120,21 @@ let Actions = props =>{
     return (<span>
       <Grid container direction='column'>
         <Grid item container spacing={1}>
-          <Grid item sm={2} xs={0}>
+          <Grid item sm={1} xs={0}>
           </Grid>
-          <Grid item sm={2} xs={4}>
+          <Grid item sm={3} xs={4}>
           <IconButton  aria-label="get csv" classes={{root: classes.iconButton}}>
             <InsertDriveFileRoundedIcon className={classes.file}/> CSV
           </IconButton>
           </Grid>
 
-          <Grid item sm={2} xs={4}>
+          <Grid item sm={3} xs={4}>
           <IconButton  aria-label="get report" classes={{root: classes.iconButton}}>
             <TrendingUpIcon className={classes.reports}/> Report
           </IconButton>
           </Grid>
 
-          <Grid item sm={6} xs={4}>
+          <Grid item sm={5} xs={4}>
           <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}}
             onClick={()=>toggle("schedullar")}>
             <DateRangeTwoToneIcon className={classes.calender}/> Schedule Again
@@ -155,30 +161,33 @@ let  ActionTable = props =>{
       <Table className={classes.table} aria-label="simple table">
         <TableHead className={classes.tableHeader}>
           <TableRow>
-            <TableCell align="center">Date</TableCell>
+            <TableCell align="center" size="small">Date</TableCell>
             <TableCell align="center">Campaign</TableCell>
-            <TableCell align="center">View</TableCell>
-            <TableCell align="center">Actions</TableCell>
+            <TableCell align="center" size="small">View</TableCell>
+            <TableCell align="center" size="large">Actions</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody >
           {data.map((row) => (
             <TableRow key={row.name}>
-              <TableCell  align="left">
+              <TableCell  align="left" classes={{root: classes.cell}} size="small">
                 <DateItem {...row}/>
               </TableCell>
 
-              <TableCell  align="center">
+
+              <TableCell  align="center" classes={{root: classes.cell}}>
                 <Campaign {...row}/>
               </TableCell>
 
-              <TableCell  align="center" >
-                <Pricing/>
+
+              <TableCell  align="center" classes={{root: classes.cell}} size="small">
+                <Pricing data={row}/>
               </TableCell>
 
-              <TableCell  align="center">
+              <TableCell  align="center" size="large" classes={{root: classes.cell}}>
                 <Actions data={row}  reschedule={props.reschedule}/>
               </TableCell>
+
             </TableRow>
           ))}
         </TableBody>
