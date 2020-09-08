@@ -20,8 +20,37 @@ import moment from 'moment'
 import PriceInfo from './PriceInfo';
 
 const useStyles = makeStyles({
+  hr1:{
+    position: "absolute",
+    width: '80%',
+    marginLeft: '20%',
+    left: '0px',
+    bottom: '0'
+  },
+  hr2:{
+    position: "absolute",
+    width: '100%',
+    left: '0px',
+    bottom: '0'
+  },
+  hr3:{
+    position: "absolute",
+    width: '100%',
+    left: '0px',
+    bottom: '0'
+  },
+  hr4:{
+    position: "absolute",
+    width: '90%',
+    marginRight: '10%',
+    left: '0px',
+    bottom: '0'
+  },
+
   table: {
     minWidth: 650,
+    position: 'relative',
+    paddingBottom: '10px'
   },
   tableHeader:{
     backgroundColor: '#d3d3d36b',
@@ -52,7 +81,8 @@ const useStyles = makeStyles({
     color: '#95e895'
   },
   cell:{
-    borderBottom: '0px'
+    borderBottom: '0px',
+    position: 'relative'
   }
 
 });
@@ -172,20 +202,24 @@ let  ActionTable = props =>{
             <TableRow key={row.name}>
               <TableCell  align="left" classes={{root: classes.cell}} size="small">
                 <DateItem {...row}/>
+                <hr className={classes.hr1}/>
               </TableCell>
 
 
               <TableCell  align="center" classes={{root: classes.cell}}>
                 <Campaign {...row}/>
+                <hr className={classes.hr2}/>
               </TableCell>
 
 
               <TableCell  align="center" classes={{root: classes.cell}} size="small">
                 <Pricing data={row}/>
+                <hr className={classes.hr3}/>
               </TableCell>
 
               <TableCell  align="center" size="large" classes={{root: classes.cell}}>
                 <Actions data={row}  reschedule={props.reschedule}/>
+                <hr className={classes.hr4}/>
               </TableCell>
 
             </TableRow>

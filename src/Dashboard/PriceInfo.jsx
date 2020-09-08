@@ -11,7 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Dialog from '@material-ui/core/Dialog';
-import { DialogContent } from '@material-ui/core';
+import { DialogContent, Grid } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -24,14 +24,26 @@ const useStyles = makeStyles({
     border: "2px solid black"
   },
   media: {
-    width: '50%',
-    paddingLeft: '30px',
+    maxWidth: '85%',
+    marginLeft: '15%',
     paddingTop: "10px"
   },
   cell:{
     borderBottom: '0px'
+  },
+  gameInfo:{
+    position: "absolute",
+    left: '17px',
+    bottom: '31px',
+    fontSize: 'x-large'
+  },
+  origin:{
+    position: "absolute",
+    left: '17px',
+    bottom: '13px',
+    fontSize: 'medium',
+    color: 'grey'
   }
-
 });
 function createData(time, price) {
   return { time, price};
@@ -51,7 +63,8 @@ let PriceInfo = props =>{
     <Dialog onClose={props.handleClose} aria-labelledby="simple-dialog-title" open={props.open}>
       <DialogContent style={{padding: "0px", width: '385px'}}>
         <Card className={classes.root}>
-
+            <Grid container>
+              <Grid item xs={6}>
             <CardMedia
               component="img"
               alt="Contemplative Reptile"
@@ -59,6 +72,13 @@ let PriceInfo = props =>{
               title="Contemplative Reptile"
               className={classes.media}
             />
+            </Grid>
+            <Grid item xs={6} style={{position: 'relative'}}>
+                <span className={classes.gameInfo}>{props.data.campaign}</span>
+              <br/>
+                <span className={classes.origin}>{props.data.origin}</span>
+            </Grid>
+            </Grid>
             <CardContent>
               <Typography gutterBottom variant="h4" component="h2" style={{position: 'relative', left: '13px'}}>
                 <span style={{fontWeight: "bold", fontStyle: 'initial', color: '#808080f2'}}> Pricing </span>
