@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/blueStacks/static/css/main.5f361e03.chunk.css",
+    "main.js": "/blueStacks/static/js/main.c97f8d45.chunk.js",
+    "main.js.map": "/blueStacks/static/js/main.c97f8d45.chunk.js.map",
+    "runtime-main.js": "/blueStacks/static/js/runtime-main.f1bbf1a1.js",
+    "runtime-main.js.map": "/blueStacks/static/js/runtime-main.f1bbf1a1.js.map",
+    "static/js/2.ebb0f535.chunk.js": "/blueStacks/static/js/2.ebb0f535.chunk.js",
+    "static/js/2.ebb0f535.chunk.js.map": "/blueStacks/static/js/2.ebb0f535.chunk.js.map",
+    "index.html": "/blueStacks/index.html",
+    "precache-manifest.c51c17af26e73d07c1268b990b1c75f0.js": "/blueStacks/precache-manifest.c51c17af26e73d07c1268b990b1c75f0.js",
+    "service-worker.js": "/blueStacks/service-worker.js",
+    "static/css/main.5f361e03.chunk.css.map": "/blueStacks/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.ebb0f535.chunk.js.LICENSE.txt": "/blueStacks/static/js/2.ebb0f535.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f1bbf1a1.js",
+    "static/js/2.ebb0f535.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.c97f8d45.chunk.js"
+  ]
+}
