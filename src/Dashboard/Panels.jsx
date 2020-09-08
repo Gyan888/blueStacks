@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { Toolbar, Grid, ListItem, ListItemText } from '@material-ui/core';
 import ActionTable from './ActionTable';
-import {set, get, remove} from 'lodash'
+import {set, remove} from 'lodash'
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({

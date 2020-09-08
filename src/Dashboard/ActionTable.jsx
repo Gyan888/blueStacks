@@ -113,35 +113,34 @@ let Actions = props =>{
 
     return (<span>
       <Grid container direction='column'>
-        <Grid item container>
-        <Grid item sm={2} xs={0}>
-        </Grid>
-        <Grid item sm={2} xs={4}>
-        <IconButton  aria-label="get csv" classes={{root: classes.iconButton}}>
-          <InsertDriveFileRoundedIcon className={classes.file}/> CSV
-        </IconButton>
-        </Grid>
+        <Grid item container spacing={1}>
+          <Grid item sm={2} xs={0}>
+          </Grid>
+          <Grid item sm={2} xs={4}>
+          <IconButton  aria-label="get csv" classes={{root: classes.iconButton}}>
+            <InsertDriveFileRoundedIcon className={classes.file}/> CSV
+          </IconButton>
+          </Grid>
 
-        <Grid item sm={2} xs={4}>
-        <IconButton  aria-label="get report" classes={{root: classes.iconButton}}>
-          <TrendingUpIcon className={classes.reports}/> Report
-        </IconButton>
-        </Grid>
+          <Grid item sm={2} xs={4}>
+          <IconButton  aria-label="get report" classes={{root: classes.iconButton}}>
+            <TrendingUpIcon className={classes.reports}/> Report
+          </IconButton>
+          </Grid>
 
-        <Grid item sm={6} xs={4}>
-        <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}}
-         onClick={()=>toggle("schedullar")}>
-          <DateRangeTwoToneIcon className={classes.calender}/> Schedule Again
-        </IconButton>
-          <MuiPickersUtilsProvider utils={MomentUtils}>
-              <DatePicker  open={actionButtons.schedullar}
-                value={moment.unix(props.data.timeStamp)}
-                TextFieldComponent={() => null}
-                onClose={()=>toggle("schedullar")}
-                onChange={handleChange}/>
-          </MuiPickersUtilsProvider>
-        </Grid>
-
+          <Grid item sm={6} xs={4}>
+          <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}}
+            onClick={()=>toggle("schedullar")}>
+            <DateRangeTwoToneIcon className={classes.calender}/> Schedule Again
+          </IconButton>
+            <MuiPickersUtilsProvider utils={MomentUtils}>
+                <DatePicker  open={actionButtons.schedullar}
+                  value={moment.unix(props.data.timeStamp)}
+                  TextFieldComponent={() => null}
+                  onClose={()=>toggle("schedullar")}
+                  onChange={handleChange}/>
+            </MuiPickersUtilsProvider>
+          </Grid>
         </Grid>
       </Grid>
     </span>);
