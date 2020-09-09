@@ -101,11 +101,11 @@ let Panel = () => {
           set(row, 'days_left', null);
           current_event.push(row);
         }
-        else if (unixToConverted.isAfter(today, 'day')){
+        else if (unixToConverted.isBefore(today, 'day')){
           set(row, 'days_left', `${days} days ago`);
           past_event.push(row);
         }
-        else if (unixToConverted.isBefore(today, 'day')){
+        else if (unixToConverted.isAfter(today, 'day')){
           set(row, 'days_left', `${days} days left`);
           future_event.push(row)
         }
