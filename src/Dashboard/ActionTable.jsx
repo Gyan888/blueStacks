@@ -25,26 +25,30 @@ const useStyles = makeStyles({
     width: '80%',
     marginLeft: '20%',
     left: '0px',
-    bottom: '0'
+    bottom: '0',
+    borderColor: 'white',
   },
   hr2:{
     position: "absolute",
     width: '100%',
     left: '0px',
-    bottom: '0'
+    bottom: '0',
+    borderColor: 'white'
   },
   hr3:{
     position: "absolute",
     width: '100%',
     left: '0px',
-    bottom: '0'
+    bottom: '0',
+    borderColor: 'white'
   },
   hr4:{
     position: "absolute",
     width: '90%',
     marginRight: '10%',
     left: '0px',
-    bottom: '0'
+    bottom: '0',
+    borderColor: 'white'
   },
 
   table: {

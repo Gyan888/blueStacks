@@ -66,7 +66,7 @@ function TabPanel(props) {
 
 let Panel = () => {
   const classes = useStyles();
-  let [value, setValue] = React.useState("current_event");
+  let [value, setValue] = React.useState("future_event");
 
   let [events, setEvents] = useState({
       'current_event': '',
