@@ -8,7 +8,7 @@ import Box from '@material-ui/core/Box';
 import { Toolbar, Grid, ListItem, ListItemText } from '@material-ui/core';
 import ActionTable from './ActionTable';
 import {set, remove} from 'lodash'
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -66,7 +66,7 @@ function TabPanel(props) {
 
 let Panel = () => {
   const classes = useStyles();
-  let [value, setValue] = React.useState("future_event");
+  let [value, setValue] = React.useState("current_event");
 
   let [events, setEvents] = useState({
       'current_event': '',
@@ -92,20 +92,20 @@ let Panel = () => {
     let past_event = [];
     let current_event = [];
     rows.forEach( row =>{
-        let converted = moment.unix(row.timeStamp).format('MMM YYYY, DD')
+        let converted = moment.unix(row.timeStamp).tz('Asia/Kathmandu').format('MMM YYYY, DD')
         set(row, 'date', converted);
-        let days = moment.duration(moment().diff(moment.unix(row.timeStamp))).asDays()
-        if (Math.round(Math.abs(days)) === 0){
+        let today = moment().tz('Asia/Kathmandu')
+        let unixToConverted = moment.unix(row.timeStamp).tz('Asia/Kathmandu')
+        let days = Math.abs(Math.ceil(moment.duration(today.diff(unixToConverted)).asDays()))
+        if (unixToConverted.isSame(today, 'day')){
           set(row, 'days_left', null);
           current_event.push(row);
         }
-        else if (days>0){
-          days = Math.round(Math.abs(days))
+        else if (unixToConverted.isAfter(today, 'day')){
           set(row, 'days_left', `${days} days ago`);
           past_event.push(row);
         }
-        else if (days < 0){
-          days = Math.round(Math.abs(days))
+        else if (unixToConverted.isBefore(today, 'day')){
           set(row, 'days_left', `${days} days left`);
           future_event.push(row)
         }
