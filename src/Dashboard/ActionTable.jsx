@@ -154,21 +154,19 @@ let Actions = props =>{
     return (<span>
       <Grid container direction='column'>
         <Grid item container spacing={1}>
-          <Grid item sm={1} xs={0}>
-          </Grid>
-          <Grid item sm={3} xs={4}>
+          <Grid item sm={12} xs={12} md={4}>
           <IconButton  aria-label="get csv" classes={{root: classes.iconButton}}>
             <InsertDriveFileRoundedIcon className={classes.file}/> CSV
           </IconButton>
           </Grid>
 
-          <Grid item sm={3} xs={4}>
+          <Grid item sm={12} xs={12} md={3}>
           <IconButton  aria-label="get report" classes={{root: classes.iconButton}}>
             <TrendingUpIcon className={classes.reports}/> Report
           </IconButton>
           </Grid>
 
-          <Grid item sm={5} xs={4}>
+          <Grid item sm={12} xs={12} md={5}>
           <IconButton  aria-label="reschedule" classes={{root: classes.iconButton}}
             onClick={()=>toggle("schedullar")}>
             <DateRangeTwoToneIcon className={classes.calender}/> Schedule Again
